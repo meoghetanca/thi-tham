@@ -110,7 +110,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <aside
       className={`flex h-full shrink-0 flex-col border-e border-mid-gray/20
         transition-[width] duration-200 ease-out
-        ${collapsed ? "w-20 px-2" : "w-64 px-3"}`}
+        ${collapsed ? "w-[76px] px-2" : "w-60 px-3"}`}
     >
       {/* Brand row doubles as the collapse control */}
       <div
@@ -130,9 +130,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
           }`}
         >
           {collapsed ? (
-            <ThiThamLogo size={60} />
+            <ThiThamLogo size={52} />
           ) : (
-            <ThiThamWordmark size={72} />
+            <ThiThamWordmark size={60} />
           )}
         </button>
 
