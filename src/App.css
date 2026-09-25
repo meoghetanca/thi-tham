@@ -16,6 +16,20 @@
   --color-error: var(--color-error);
 }
 
+/* The app shell is h-screen, but it is not the only child of <body>: the toaster
+   renders beside it. Without this the document grows past 100vh and the window
+   gains a second scrollbar plus dead space below the footer. Clipping here
+   leaves the settings pane as the only scroller. */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+}
+
 /* The wordmark wants a rounded, friendly face rather than the UI font.
    ui-rounded resolves to SF Pro Rounded on macOS — already installed, and its
    Vietnamese diacritics are properly drawn rather than synthesised. */

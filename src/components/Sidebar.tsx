@@ -130,9 +130,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
           }`}
         >
           {collapsed ? (
-            <ThiThamLogo size={44} />
+            <ThiThamLogo size={52} />
           ) : (
-            <ThiThamWordmark size={44} />
+            <ThiThamWordmark size={56} />
           )}
         </button>
 

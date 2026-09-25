@@ -4,7 +4,7 @@ import ThiThamLogo from "./ThiThamLogo";
 
 /** Logo and name as one lockup, so every surface scales them together. */
 const ThiThamWordmark: React.FC<{ size?: number; className?: string }> = ({
-  size = 40,
+  size = 56,
   className = "",
 }) => {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ const ThiThamWordmark: React.FC<{ size?: number; className?: string }> = ({
       <ThiThamLogo size={size} />
       <span
         className="font-display truncate"
-        style={{ fontSize: Math.round(size * 0.62) }}
+        style={{ fontSize: Math.round(size * 0.36) }}
       >
         {t("app.name")}
       </span>
