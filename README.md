@@ -16,7 +16,7 @@ leaves your Mac. It works on a plane.
 
 **1. Download the app**
 
-Grab `Thì thầm_0.9.7_aarch64.dmg` from the
+Grab `Thi-tham_0.9.7_aarch64.dmg` from the
 [latest release](https://github.com/meoghetanca/thi-tham/releases/latest), open
 it, and drag **Thì thầm** into your Applications folder.
 
