@@ -48,9 +48,20 @@ jobs:
 
       - run: bun run tauri build --target aarch64-apple-darwin
 
+      # productName carries diacritics, so the built dmg is "Thì thầm_....dmg".
+      # GitHub strips those from asset names and it arrives as "Thi.th.m_...",
+      # which is both ugly and not what the README tells people to download.
+      - name: Give the dmg an ASCII name
+        run: |
+          cd src-tauri/target/aarch64-apple-darwin/release/bundle/dmg
+          for f in *.dmg; do
+            mv "$f" "Thi-tham_${f##*_}"
+          done
+          ls -la
+
       - uses: softprops/action-gh-release@v2
         with:
-          files: src-tauri/target/aarch64-apple-darwin/release/bundle/dmg/*.dmg
+          files: src-tauri/target/aarch64-apple-darwin/release/bundle/dmg/Thi-tham_*.dmg
           body: |
             Download the `.dmg`, drag **Thì thầm** to Applications, then
             **right-click → Open → Open** the first time (the app is unsigned).
