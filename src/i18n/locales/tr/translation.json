@@ -16,7 +16,10 @@
     "postProcessing": "Son İşlem",
     "history": "Geçmiş",
     "debug": "Hata Ayıklama",
-    "about": "Hakkında"
+    "about": "Hakkında",
+    "dictation": "Dictation",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar"
   },
   "onboarding": {
     "subtitle": "Başlamak için bir transkripsiyon modeli seçin",
@@ -636,6 +639,9 @@
         "label": "Yenilikleri Göster",
         "description": "Handy güncellemelerinden sonra sürüm notlarını göster"
       }
+    },
+    "cleanup": {
+      "title": "Transcript cleanup"
     }
   },
   "footer": {
@@ -714,5 +720,12 @@
     "learnMore": "Bu nasıl düzeltilir",
     "recorderBlocked": "Şu anda kısayol kaydedilemiyor — macOS Secure Input tuş olaylarını engelliyor. Önce Secure Input uyarısını giderin.",
     "dismiss": "Kapat"
+  },
+  "app": {
+    "name": "Thì thầm"
+  },
+  "mic": {
+    "start": "Start dictating",
+    "stop": "Stop dictating"
   }
 }

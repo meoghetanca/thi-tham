@@ -16,7 +16,10 @@
     "postProcessing": "Pós-Processamento",
     "history": "Histórico",
     "debug": "Depuração",
-    "about": "Sobre"
+    "about": "Sobre",
+    "dictation": "Dictation",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar"
   },
   "onboarding": {
     "subtitle": "Para começar, escolha um modelo de transcrição",
@@ -636,6 +639,9 @@
         "label": "Mostrar novidades",
         "description": "Mostrar notas de versão após atualizações do Handy"
       }
+    },
+    "cleanup": {
+      "title": "Transcript cleanup"
     }
   },
   "footer": {
@@ -714,5 +720,12 @@
     "learnMore": "Como resolver isso",
     "recorderBlocked": "Não é possível gravar atalhos agora — o Secure Input do macOS está bloqueando os eventos de tecla. Resolva primeiro o aviso do Secure Input.",
     "dismiss": "Dispensar"
+  },
+  "app": {
+    "name": "Thì thầm"
+  },
+  "mic": {
+    "start": "Start dictating",
+    "stop": "Stop dictating"
   }
 }

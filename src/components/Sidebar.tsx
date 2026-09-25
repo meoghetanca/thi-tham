@@ -1,13 +1,9 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Keyboard, ScrollText, Settings2 } from "lucide-react";
-import HandyTextLogo from "./icons/HandyTextLogo";
+import { Keyboard, Menu, ScrollText, Settings2 } from "lucide-react";
+import ThiThamLogo from "./icons/ThiThamLogo";
 import { MicButton } from "./MicButton";
-import {
-  GeneralSettings,
-  AdvancedSettings,
-  HistorySettings,
-} from "./settings";
+import { GeneralSettings, AdvancedSettings, HistorySettings } from "./settings";
 
 export type SidebarSection = keyof typeof SECTIONS_CONFIG;
 
@@ -52,43 +48,103 @@ export const SECTIONS_CONFIG = {
   },
 } as const satisfies Record<string, SectionConfig>;
 
-interface TopBarProps {
+const COLLAPSE_KEY = "sidebar:collapsed";
+
+interface SidebarProps {
   activeSection: SidebarSection;
   onSectionChange: (section: SidebarSection) => void;
 }
 
 /**
- * Horizontal shell: brand, section tabs, and the mic.
+ * Collapsible left rail.
  *
- * The mic sits in the bar rather than inside a section because dictating is the
- * thing you came to do — it stays one click away no matter which settings page
- * is open.
+ * Collapsed, the logo doubles as the expand control — a hamburger in a 64px
+ * column costs a row and earns nothing, and the mark is the one thing always
+ * worth showing. The collapsed state is per-machine window furniture, so it
+ * lives in localStorage rather than app settings.
  */
-export const TopBar: React.FC<TopBarProps> = ({
+export const Sidebar: React.FC<SidebarProps> = ({
   activeSection,
   onSectionChange,
 }) => {
   const { t } = useTranslation();
+  const [collapsed, setCollapsed] = useState(false);
 
-  const availableSections = Object.entries(SECTIONS_CONFIG)
-    .filter(([_, config]) => config.enabled())
+  useEffect(() => {
+    try {
+      setCollapsed(localStorage.getItem(COLLAPSE_KEY) === "1");
+    } catch {
+      // Private mode or blocked storage: expanded is the safe default.
+    }
+  }, []);
+
+  const toggle = useCallback(() => {
+    setCollapsed((c) => {
+      const next = !c;
+      try {
+        localStorage.setItem(COLLAPSE_KEY, next ? "1" : "0");
+      } catch {
+        // Not worth failing the interaction over.
+      }
+      return next;
+    });
+  }, []);
+
+  const sections = Object.entries(SECTIONS_CONFIG)
+    .filter(([, config]) => config.enabled())
     .map(([id, config]) => ({ id: id as SidebarSection, ...config }));
 
   return (
-    <header className="shrink-0 border-b border-mid-gray/20">
-      <div className="flex items-center gap-3 px-4 pt-3 pb-2">
-        <HandyTextLogo width={92} className="shrink-0" />
-        <div className="flex-1" />
-        <MicButton />
+    <aside
+      className={`flex h-full shrink-0 flex-col border-e border-mid-gray/20
+        transition-[width] duration-200 ease-out
+        ${collapsed ? "w-16 px-2" : "w-56 px-3"}`}
+    >
+      {/* Brand row doubles as the collapse control */}
+      <div
+        className={`flex items-center pt-4 pb-5 ${
+          collapsed ? "justify-center" : "gap-2.5"
+        }`}
+      >
+        <button
+          type="button"
+          onClick={collapsed ? toggle : undefined}
+          aria-label={collapsed ? t("sidebar.expand") : undefined}
+          title={collapsed ? t("sidebar.expand") : undefined}
+          className={`flex shrink-0 items-center rounded-lg ${
+            collapsed
+              ? "cursor-pointer p-1 hover:bg-mid-gray/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-logo-primary"
+              : "cursor-default"
+          }`}
+        >
+          <ThiThamLogo size={collapsed ? 30 : 28} />
+        </button>
+
+        {!collapsed && (
+          <>
+            <span className="truncate text-[17px] font-semibold tracking-tight">
+              {t("app.name")}
+            </span>
+            <button
+              type="button"
+              onClick={toggle}
+              aria-label={t("sidebar.collapse")}
+              title={t("sidebar.collapse")}
+              className="ms-auto shrink-0 cursor-pointer rounded-lg p-1.5 opacity-60
+                transition hover:bg-mid-gray/15 hover:opacity-100
+                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-logo-primary"
+            >
+              <Menu width={19} height={19} />
+            </button>
+          </>
+        )}
       </div>
 
-      <nav
-        className="flex items-center gap-1 overflow-x-auto px-3 pb-2"
-        aria-label={t("sidebar.general")}
-      >
-        {availableSections.map((section) => {
+      <nav className="flex flex-col gap-1.5">
+        {sections.map((section) => {
           const Icon = section.icon;
           const isActive = activeSection === section.id;
+          const label = t(section.labelKey);
 
           return (
             <button
@@ -96,21 +152,28 @@ export const TopBar: React.FC<TopBarProps> = ({
               type="button"
               onClick={() => onSectionChange(section.id)}
               aria-current={isActive ? "page" : undefined}
-              className={`flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-sm
-                transition-colors cursor-pointer
+              title={collapsed ? label : undefined}
+              className={`flex cursor-pointer items-center rounded-xl transition-colors
                 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-logo-primary
+                ${collapsed ? "h-11 w-11 justify-center self-center" : "gap-3 px-3 py-2.5"}
                 ${
                   isActive
-                    ? "bg-logo-primary/85 text-logo-stroke font-medium"
-                    : "opacity-70 hover:opacity-100 hover:bg-mid-gray/15"
+                    ? "bg-logo-primary/25 text-accent-strong font-semibold"
+                    : "opacity-70 hover:bg-mid-gray/15 hover:opacity-100"
                 }`}
             >
-              <Icon width={16} height={16} className="shrink-0" />
-              <span className="truncate">{t(section.labelKey)}</span>
+              <Icon width={20} height={20} className="shrink-0" />
+              {!collapsed && (
+                <span className="truncate text-[15px]">{label}</span>
+              )}
             </button>
           );
         })}
       </nav>
-    </header>
+
+      <div className={`mt-auto pb-4 ${collapsed ? "self-center" : ""}`}>
+        <MicButton expanded={!collapsed} />
+      </div>
+    </aside>
   );
 };

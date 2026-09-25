@@ -16,7 +16,10 @@
     "postProcessing": "Efterbearbetning",
     "history": "Historik",
     "debug": "Felsökning",
-    "about": "Om"
+    "about": "Om",
+    "dictation": "Dictation",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar"
   },
   "onboarding": {
     "subtitle": "För att komma igång, välj en transkriptionsmodell",
@@ -636,6 +639,9 @@
         "label": "Visa nyheter",
         "description": "Visa versionsinformation efter Handy-uppdateringar"
       }
+    },
+    "cleanup": {
+      "title": "Transcript cleanup"
     }
   },
   "footer": {
@@ -714,5 +720,12 @@
     "learnMore": "Så här löser du det",
     "recorderBlocked": "Det går inte att spela in kortkommandon just nu — macOS Secure Input blockerar tangenthändelser. Lös varningen om Secure Input först.",
     "dismiss": "Avfärda"
+  },
+  "app": {
+    "name": "Thì thầm"
+  },
+  "mic": {
+    "start": "Start dictating",
+    "stop": "Stop dictating"
   }
 }

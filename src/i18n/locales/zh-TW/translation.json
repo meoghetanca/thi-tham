@@ -16,7 +16,10 @@
     "postProcessing": "後處理",
     "history": "歷史紀錄",
     "debug": "偵錯",
-    "about": "關於"
+    "about": "關於",
+    "dictation": "Dictation",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar"
   },
   "onboarding": {
     "subtitle": "首先，請選擇一種模型",
@@ -636,6 +639,9 @@
         "label": "顯示新功能",
         "description": "Handy 更新後顯示版本資訊"
       }
+    },
+    "cleanup": {
+      "title": "Transcript cleanup"
     }
   },
   "footer": {
@@ -714,5 +720,12 @@
     "learnMore": "如何解決",
     "recorderBlocked": "目前無法錄製快捷鍵——macOS 的 Secure Input 正在阻擋按鍵事件。請先解決 Secure Input 警告。",
     "dismiss": "關閉"
+  },
+  "app": {
+    "name": "Thì thầm"
+  },
+  "mic": {
+    "start": "Start dictating",
+    "stop": "Stop dictating"
   }
 }

@@ -17,7 +17,7 @@ curl -fsSL https://bun.sh/install | bash
    `this SDK is not supported by the compiler`. The build dies compiling
    `swift/apple_intelligence_stub.swift`.
 2. Apple Intelligence needs the FoundationModelsMacros plugin, which only full
-   Xcode has. With CLT, `build.rs` silently compiles the *stub* — the Cleanup
+   Xcode has. With CLT, `build.rs` silently compiles the _stub_ — the Cleanup
    setting appears in the UI but does nothing.
 
 After installing Xcode:

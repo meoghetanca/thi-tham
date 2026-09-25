@@ -17,8 +17,9 @@
     "history": "History",
     "debug": "Debug",
     "about": "About",
-    "speak": "Speak",
-    "dictation": "Dictation"
+    "dictation": "Dictation",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar"
   },
   "onboarding": {
     "subtitle": "To get started, choose a transcription model",
@@ -723,5 +724,8 @@
   "mic": {
     "start": "Start dictating",
     "stop": "Stop dictating"
+  },
+  "app": {
+    "name": "Thì thầm"
   }
 }

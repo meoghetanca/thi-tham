@@ -11,7 +11,9 @@ import { useTranslation } from "react-i18next";
  * polled rather than pushed — the window is only open while someone is looking
  * at it, so a short interval is cheaper than wiring a dedicated event.
  */
-export const MicButton: React.FC = () => {
+export const MicButton: React.FC<{ expanded?: boolean }> = ({
+  expanded = true,
+}) => {
   const { t } = useTranslation();
   const [recording, setRecording] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -57,7 +59,8 @@ export const MicButton: React.FC = () => {
       aria-label={label}
       aria-pressed={recording}
       title={label}
-      className={`group relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full
+      className={`group relative flex h-11 shrink-0 items-center rounded-full
+        ${expanded ? "w-full gap-2.5 px-3.5 justify-start" : "w-11 justify-center"}
         transition-transform duration-150 ease-out
         focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-logo-primary
         disabled:opacity-60 active:scale-95
@@ -67,10 +70,15 @@ export const MicButton: React.FC = () => {
             : "bg-logo-primary/15 text-logo-primary hover:bg-logo-primary/25"
         }`}
     >
-      {recording ? (
-        <Square size={16} strokeWidth={2.5} className="fill-current" />
-      ) : (
-        <Mic size={19} strokeWidth={2} />
+      <span className="flex h-11 w-[19px] shrink-0 items-center justify-center">
+        {recording ? (
+          <Square size={16} strokeWidth={2.5} className="fill-current" />
+        ) : (
+          <Mic size={19} strokeWidth={2} />
+        )}
+      </span>
+      {expanded && (
+        <span className="truncate text-sm font-medium">{label}</span>
       )}
       {recording && (
         <span className="pointer-events-none absolute inset-0 rounded-full border-2 border-logo-primary motion-safe:animate-ping" />

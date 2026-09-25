@@ -8,11 +8,14 @@
   --light-color-background: #fbfbfb;
   --light-color-logo-primary: #faa2ca;
   --light-color-logo-stroke: #382731;
+  /* Readable pink for text/icons on a tinted pill; the logo pink is too pale. */
+  --light-color-accent-strong: #c2407b;
 
   --dark-color-text: #fbfbfb;
   --dark-color-background: #2c2b29;
   --dark-color-logo-primary: #f28cbb;
   --dark-color-logo-stroke: #fad1ed;
+  --dark-color-accent-strong: #f9b6d5;
 
   /* Semantic status colors. First used by SecureInputWarning; intended to
      replace the ad-hoc yellow-500/red-500 usages (e.g. ui/Alert.tsx) over
@@ -33,6 +36,7 @@
   --color-background: var(--light-color-background);
   --color-logo-primary: var(--light-color-logo-primary);
   --color-logo-stroke: var(--light-color-logo-stroke);
+  --color-accent-strong: var(--light-color-accent-strong);
   --color-warning: var(--light-color-warning);
   --color-error: var(--light-color-error);
 }
@@ -43,6 +47,7 @@
     --color-background: var(--dark-color-background);
     --color-logo-primary: var(--dark-color-logo-primary);
     --color-logo-stroke: var(--dark-color-logo-stroke);
+    --color-accent-strong: var(--dark-color-accent-strong);
     --color-warning: var(--dark-color-warning);
     --color-error: var(--dark-color-error);
   }
@@ -63,6 +68,7 @@
   --color-background: var(--light-color-background);
   --color-logo-primary: var(--light-color-logo-primary);
   --color-logo-stroke: var(--light-color-logo-stroke);
+  --color-accent-strong: var(--light-color-accent-strong);
   --color-warning: var(--light-color-warning);
   --color-error: var(--light-color-error);
 }
@@ -72,6 +78,7 @@
   --color-background: var(--dark-color-background);
   --color-logo-primary: var(--dark-color-logo-primary);
   --color-logo-stroke: var(--dark-color-logo-stroke);
+  --color-accent-strong: var(--dark-color-accent-strong);
   --color-warning: var(--dark-color-warning);
   --color-error: var(--dark-color-error);
 }

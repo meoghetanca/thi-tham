@@ -17,8 +17,9 @@
     "history": "Lịch sử",
     "debug": "Gỡ lỗi",
     "about": "Giới thiệu",
-    "speak": "Nói",
-    "dictation": "Đọc chính tả"
+    "dictation": "Đọc chính tả",
+    "collapse": "Thu gọn thanh bên",
+    "expand": "Mở rộng thanh bên"
   },
   "onboarding": {
     "subtitle": "Để bắt đầu, hãy chọn một mô hình chuyển đổi giọng nói",
@@ -723,5 +724,8 @@
   "mic": {
     "start": "Bắt đầu đọc",
     "stop": "Dừng đọc"
+  },
+  "app": {
+    "name": "Thì thầm"
   }
 }
