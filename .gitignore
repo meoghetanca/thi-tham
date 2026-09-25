@@ -48,3 +48,4 @@ __pycache__/
 
 # Logo background-removal proofs (verification only)
 assets/logo-proof*.png
+assets/icon-proof.png
