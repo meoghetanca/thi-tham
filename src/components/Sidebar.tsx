@@ -1,23 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import {
-  AudioLines,
-  BadgeInfo,
-  ScrollText,
-  Settings2,
-  SlidersHorizontal,
-  Wand2,
-} from "lucide-react";
+import { Keyboard, ScrollText, Settings2 } from "lucide-react";
 import HandyTextLogo from "./icons/HandyTextLogo";
 import { MicButton } from "./MicButton";
-import { useSettings } from "../hooks/useSettings";
 import {
   GeneralSettings,
   AdvancedSettings,
   HistorySettings,
-  AboutSettings,
-  PostProcessingSettings,
-  ModelsSettings,
 } from "./settings";
 
 export type SidebarSection = keyof typeof SECTIONS_CONFIG;
@@ -34,24 +23,19 @@ interface SectionConfig {
   labelKey: string;
   icon: React.ComponentType<IconProps>;
   component: React.ComponentType;
-  enabled: (settings: any) => boolean;
+  enabled: () => boolean;
 }
 
 /**
- * Icons name what each section is *about*, not what runs it — a voice model is
- * a waveform, not a CPU; a transcript is a scroll, not a clock.
+ * Three sections, because that is all this app has to say. Models and About sit
+ * inside Advanced: both are visited once and then forgotten, which is a section,
+ * not a tab.
  */
 export const SECTIONS_CONFIG = {
-  general: {
-    labelKey: "sidebar.general",
-    icon: SlidersHorizontal,
+  dictation: {
+    labelKey: "sidebar.dictation",
+    icon: Keyboard,
     component: GeneralSettings,
-    enabled: () => true,
-  },
-  models: {
-    labelKey: "sidebar.models",
-    icon: AudioLines,
-    component: ModelsSettings,
     enabled: () => true,
   },
   history: {
@@ -64,18 +48,6 @@ export const SECTIONS_CONFIG = {
     labelKey: "sidebar.advanced",
     icon: Settings2,
     component: AdvancedSettings,
-    enabled: () => true,
-  },
-  postprocessing: {
-    labelKey: "sidebar.postProcessing",
-    icon: Wand2,
-    component: PostProcessingSettings,
-    enabled: (settings) => settings?.post_process_enabled ?? false,
-  },
-  about: {
-    labelKey: "sidebar.about",
-    icon: BadgeInfo,
-    component: AboutSettings,
     enabled: () => true,
   },
 } as const satisfies Record<string, SectionConfig>;
@@ -97,10 +69,9 @@ export const TopBar: React.FC<TopBarProps> = ({
   onSectionChange,
 }) => {
   const { t } = useTranslation();
-  const { settings } = useSettings();
 
   const availableSections = Object.entries(SECTIONS_CONFIG)
-    .filter(([_, config]) => config.enabled(settings))
+    .filter(([_, config]) => config.enabled())
     .map(([id, config]) => ({ id: id as SidebarSection, ...config }));
 
   return (

@@ -517,7 +517,10 @@ pub struct AppSettings {
 }
 
 fn default_model() -> String {
-    "".to_string()
+    // One model ships selected so nobody has to choose on first run;
+    // Advanced is where it gets changed. Turbo is the accuracy leader of the
+    // four and the only one that survives English words inside Vietnamese.
+    "handy-computer/whisper-large-v3-turbo-gguf/whisper-large-v3-turbo-Q8_0.gguf".to_string()
 }
 
 const CURRENT_SETTINGS_SCHEMA_VERSION: u32 = 2;
@@ -920,7 +923,7 @@ pub fn get_default_settings() -> AppSettings {
         update_checks_enabled: default_update_checks_enabled(),
         show_whats_new_on_update: default_show_whats_new_on_update(),
         whats_new_last_seen_version: default_whats_new_last_seen_version(),
-        selected_model: "".to_string(),
+        selected_model: default_model(),
         onboarding_completed: false,
         always_on_microphone: false,
         selected_microphone: None,

@@ -17,7 +17,8 @@
     "history": "History",
     "debug": "Debug",
     "about": "About",
-    "speak": "Speak"
+    "speak": "Speak",
+    "dictation": "Dictation"
   },
   "onboarding": {
     "subtitle": "To get started, choose a transcription model",

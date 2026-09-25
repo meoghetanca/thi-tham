@@ -37,7 +37,7 @@ const NOOP = () => {};
 
 const renderSettingsContent = (section: SidebarSection) => {
   const ActiveComponent =
-    SECTIONS_CONFIG[section]?.component || SECTIONS_CONFIG.general.component;
+    SECTIONS_CONFIG[section]?.component || SECTIONS_CONFIG.dictation.component;
   return <ActiveComponent />;
 };
 
@@ -52,7 +52,7 @@ function App() {
   // (vs a new user who needs full onboarding including model selection)
   const [isReturningUser, setIsReturningUser] = useState(false);
   const [currentSection, setCurrentSection] =
-    useState<SidebarSection>("general");
+    useState<SidebarSection>("dictation");
   const { settings, updateSetting } = useSettings();
   const direction = getLanguageDirection(i18n.language);
   const refreshAudioDevices = useSettingsStore(
@@ -276,7 +276,9 @@ function App() {
   const handleAccessibilityComplete = () => {
     // Returning users already have models, skip to main app
     // New users need to select a model
-    setOnboardingStep(isReturningUser ? "done" : "model");
+    // A model is selected by default, so onboarding never asks for one;
+    // it is changed in Advanced instead.
+    setOnboardingStep("done");
   };
 
   const handleModelSelected = () => {

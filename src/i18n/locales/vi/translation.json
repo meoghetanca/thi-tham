@@ -17,7 +17,8 @@
     "history": "Lịch sử",
     "debug": "Gỡ lỗi",
     "about": "Giới thiệu",
-    "speak": "Nói"
+    "speak": "Nói",
+    "dictation": "Đọc chính tả"
   },
   "onboarding": {
     "subtitle": "Để bắt đầu, hãy chọn một mô hình chuyển đổi giọng nói",
