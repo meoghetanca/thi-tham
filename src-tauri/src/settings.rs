@@ -1196,9 +1196,12 @@ fn apply_settings_migrations(
 /// `HANDY_DISABLE_UPDATER` is set — e.g. by the Nix package, since self-update
 /// can't work against an immutable /nix/store install.
 pub fn update_checks_forced_disabled() -> bool {
-    use std::sync::OnceLock;
-    static IS_UPDATER_DISABLED: OnceLock<bool> = OnceLock::new();
-    *IS_UPDATER_DISABLED.get_or_init(|| utils::env_flag_enabled("HANDY_DISABLE_UPDATER"))
+    // This fork publishes no signed updater artifacts, so there is nothing to
+    // update *to*. Leaving checks on would point the app at the upstream feed
+    // and offer to install stock Handy over Thì thầm, replacing the rebrand and
+    // the trimmed UI. Forced off here rather than via the env flag so it cannot
+    // be switched on by accident.
+    true
 }
 
 /// Effective updater state: the user's stored preference, overridden to `false`

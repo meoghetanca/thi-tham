@@ -45,3 +45,6 @@ result
 
 # Python bytecode (scripts/)
 __pycache__/
+
+# Logo background-removal proofs (verification only)
+assets/logo-proof*.png
