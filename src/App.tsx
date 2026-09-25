@@ -35,7 +35,7 @@ const NOOP = () => {};
 
 const renderSettingsContent = (section: SidebarSection) => {
   const ActiveComponent =
-    SECTIONS_CONFIG[section]?.component || SECTIONS_CONFIG.dictation.component;
+    SECTIONS_CONFIG[section]?.component || SECTIONS_CONFIG.home.component;
   return <ActiveComponent />;
 };
 
@@ -49,8 +49,7 @@ function App() {
   // Track if this is a returning user who just needs to grant permissions
   // (vs a new user who needs full onboarding including model selection)
   const [isReturningUser, setIsReturningUser] = useState(false);
-  const [currentSection, setCurrentSection] =
-    useState<SidebarSection>("dictation");
+  const [currentSection, setCurrentSection] = useState<SidebarSection>("home");
   const { settings, updateSetting } = useSettings();
   const direction = getLanguageDirection(i18n.language);
   const refreshAudioDevices = useSettingsStore(

@@ -5,7 +5,7 @@ import { SettingContainer } from "../ui/SettingContainer";
 import { PathDisplay } from "../ui/PathDisplay";
 
 interface AppDataDirectoryProps {
-  descriptionMode?: "tooltip" | "inline";
+  descriptionMode?: "tooltip" | "inline" | "none";
   grouped?: boolean;
 }
 

@@ -14,7 +14,7 @@ const LOG_LEVEL_OPTIONS: DropdownOption[] = [
 ];
 
 interface LogLevelSelectorProps {
-  descriptionMode?: "tooltip" | "inline";
+  descriptionMode?: "tooltip" | "inline" | "none";
   grouped?: boolean;
 }
 

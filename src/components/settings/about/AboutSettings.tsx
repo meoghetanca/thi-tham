@@ -14,12 +14,12 @@ export const AboutSettings: React.FC = () => {
   return (
     <div className="max-w-3xl w-full mx-auto space-y-6">
       <SettingsGroup title={t("settings.about.title")}>
-        <AppLanguageSelector descriptionMode="tooltip" grouped={true} />
-        <ThemeSelector descriptionMode="tooltip" grouped={true} />
+        <AppLanguageSelector descriptionMode="none" grouped={true} />
+        <ThemeSelector descriptionMode="none" grouped={true} />
         <SettingContainer
           title={t("settings.about.sourceCode.title")}
           description={t("settings.about.sourceCode.description")}
-          descriptionMode="tooltip"
+          descriptionMode="none"
           grouped={true}
         >
           <Button
@@ -30,7 +30,7 @@ export const AboutSettings: React.FC = () => {
             {t("settings.about.sourceCode.button")}
           </Button>
         </SettingContainer>
-        <AppDataDirectory descriptionMode="tooltip" grouped={true} />
+        <AppDataDirectory descriptionMode="none" grouped={true} />
         <LogDirectory grouped={true} />
       </SettingsGroup>
     </div>

@@ -6,7 +6,7 @@ import { commands } from "@/bindings";
 import { useSettings } from "../../hooks/useSettings";
 
 interface ChannelSelectorProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

@@ -18,7 +18,7 @@ const ORT_LABELS: Record<OrtAcceleratorSetting, string> = {
 };
 
 interface AccelerationSelectorProps {
-  descriptionMode?: "tooltip" | "inline";
+  descriptionMode?: "tooltip" | "inline" | "none";
   grouped?: boolean;
 }
 

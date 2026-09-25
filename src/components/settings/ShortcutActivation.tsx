@@ -6,7 +6,7 @@ import { useSettings } from "../../hooks/useSettings";
 import type { ShortcutActivation } from "@/bindings";
 
 interface ShortcutActivationProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

@@ -74,7 +74,7 @@ const formatTime = (date: Date): string => {
 };
 
 interface LiveLogViewerProps {
-  descriptionMode?: "tooltip" | "inline";
+  descriptionMode?: "tooltip" | "inline" | "none";
   grouped?: boolean;
 }
 

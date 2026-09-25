@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { SettingContainer } from "../../ui/SettingContainer";
 
 interface DebugPathsProps {
-  descriptionMode?: "tooltip" | "inline";
+  descriptionMode?: "tooltip" | "inline" | "none";
   grouped?: boolean;
 }
 

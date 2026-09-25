@@ -6,7 +6,7 @@ import { useSettings } from "../../hooks/useSettings";
 import type { ClipboardHandling } from "@/bindings";
 
 interface ClipboardHandlingProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

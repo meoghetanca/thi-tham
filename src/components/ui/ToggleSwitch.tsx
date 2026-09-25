@@ -8,7 +8,7 @@ interface ToggleSwitchProps {
   isUpdating?: boolean;
   label: string;
   description: string;
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
   tooltipPosition?: "top" | "bottom";
 }

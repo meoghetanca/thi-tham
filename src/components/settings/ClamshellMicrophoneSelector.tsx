@@ -7,7 +7,7 @@ import { ResetButton } from "../ui/ResetButton";
 import { useSettings } from "../../hooks/useSettings";
 
 interface ClamshellMicrophoneSelectorProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

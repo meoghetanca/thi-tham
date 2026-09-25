@@ -26,7 +26,7 @@ export const AdvancedSettings: React.FC = () => {
       <ModelsSettings />
 
       <SettingsGroup title={t("settings.cleanup.title")}>
-        <PostProcessingToggle descriptionMode="tooltip" grouped={true} />
+        <PostProcessingToggle descriptionMode="none" grouped={true} />
       </SettingsGroup>
 
       {/* Provider and prompt configuration only matters once cleanup is on;
@@ -34,15 +34,15 @@ export const AdvancedSettings: React.FC = () => {
       {cleanupOn && <PostProcessingSettings />}
 
       <SettingsGroup title={t("settings.advanced.groups.history")}>
-        <HistoryLimit descriptionMode="tooltip" grouped={true} />
+        <HistoryLimit descriptionMode="none" grouped={true} />
         <RecordingRetentionPeriodSelector
-          descriptionMode="tooltip"
+          descriptionMode="none"
           grouped={true}
         />
       </SettingsGroup>
 
       <SettingsGroup title={t("settings.advanced.groups.app")}>
-        <ShowOverlay descriptionMode="tooltip" grouped={true} />
+        <ShowOverlay descriptionMode="none" grouped={true} />
       </SettingsGroup>
 
       <AboutSettings />

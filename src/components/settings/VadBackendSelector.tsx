@@ -6,7 +6,7 @@ import { Dropdown, type DropdownOption } from "@/components/ui/Dropdown";
 import { SettingContainer } from "@/components/ui/SettingContainer";
 
 interface VadBackendSelectorProps {
-  descriptionMode?: "tooltip" | "inline";
+  descriptionMode?: "tooltip" | "inline" | "none";
   grouped?: boolean;
 }
 

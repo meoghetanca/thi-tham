@@ -4,7 +4,7 @@ import { GlobalShortcutInput } from "./GlobalShortcutInput";
 import { HandyKeysShortcutInput } from "./HandyKeysShortcutInput";
 
 interface ShortcutInputProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
   shortcutId: string;
   disabled?: boolean;

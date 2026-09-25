@@ -6,7 +6,7 @@ import { useSettings } from "../../hooks/useSettings";
 import type { OverlayPosition, OverlayStyle } from "@/bindings";
 
 interface ShowOverlayProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

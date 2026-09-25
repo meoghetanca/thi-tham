@@ -16,6 +16,17 @@
   --color-error: var(--color-error);
 }
 
+/* The wordmark wants a rounded, friendly face rather than the UI font.
+   ui-rounded resolves to SF Pro Rounded on macOS — already installed, and its
+   Vietnamese diacritics are properly drawn rather than synthesised. */
+.font-display {
+  font-family:
+    ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN", system-ui,
+    sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
 :root {
   /* Typography */
   font-size: 15px;

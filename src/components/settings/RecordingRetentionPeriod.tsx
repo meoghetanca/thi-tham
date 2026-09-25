@@ -6,7 +6,7 @@ import { useSettings } from "../../hooks/useSettings";
 import { RecordingRetentionPeriod } from "@/bindings";
 
 interface RecordingRetentionPeriodProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

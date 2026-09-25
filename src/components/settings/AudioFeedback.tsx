@@ -6,7 +6,7 @@ import { VolumeSlider } from "./VolumeSlider";
 import { SoundPicker } from "./SoundPicker";
 
 interface AudioFeedbackProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

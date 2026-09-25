@@ -7,7 +7,7 @@ import { applyTheme, THEME_OPTIONS } from "@/lib/utils/theme";
 import type { Theme } from "@/bindings";
 
 interface ThemeSelectorProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

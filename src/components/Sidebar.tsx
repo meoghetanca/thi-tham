@@ -1,9 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Keyboard, Menu, ScrollText, Settings2 } from "lucide-react";
+import { House, Keyboard, Menu, ScrollText, Settings2 } from "lucide-react";
 import ThiThamLogo from "./icons/ThiThamLogo";
+import ThiThamWordmark from "./icons/ThiThamWordmark";
 import { MicButton } from "./MicButton";
-import { GeneralSettings, AdvancedSettings, HistorySettings } from "./settings";
+import {
+  HomePanel,
+  GeneralSettings,
+  AdvancedSettings,
+  HistorySettings,
+} from "./settings";
 
 export type SidebarSection = keyof typeof SECTIONS_CONFIG;
 
@@ -28,6 +34,12 @@ interface SectionConfig {
  * not a tab.
  */
 export const SECTIONS_CONFIG = {
+  home: {
+    labelKey: "sidebar.home",
+    icon: House,
+    component: HomePanel,
+    enabled: () => true,
+  },
   dictation: {
     labelKey: "sidebar.dictation",
     icon: Keyboard,
@@ -98,7 +110,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <aside
       className={`flex h-full shrink-0 flex-col border-e border-mid-gray/20
         transition-[width] duration-200 ease-out
-        ${collapsed ? "w-16 px-2" : "w-56 px-3"}`}
+        ${collapsed ? "w-[72px] px-2" : "w-60 px-3"}`}
     >
       {/* Brand row doubles as the collapse control */}
       <div
@@ -117,14 +129,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
               : "cursor-default"
           }`}
         >
-          <ThiThamLogo size={collapsed ? 30 : 28} />
+          {collapsed ? (
+            <ThiThamLogo size={44} />
+          ) : (
+            <ThiThamWordmark size={44} />
+          )}
         </button>
 
         {!collapsed && (
           <>
-            <span className="truncate text-[17px] font-semibold tracking-tight">
-              {t("app.name")}
-            </span>
             <button
               type="button"
               onClick={toggle}

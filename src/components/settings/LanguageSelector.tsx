@@ -11,7 +11,7 @@ import {
 } from "../../lib/constants/languages";
 
 interface LanguageSelectorProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
   supportedLanguages?: string[];
   // Whether the model can auto-detect language. Gates the "Auto" option:

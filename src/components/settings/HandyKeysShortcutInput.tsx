@@ -12,7 +12,7 @@ import { openUrl } from "@tauri-apps/plugin-opener";
 import { SECURE_INPUT_HELP_URL } from "../SecureInputWarning";
 
 interface HandyKeysShortcutInputProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
   shortcutId: string;
   disabled?: boolean;

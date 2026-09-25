@@ -4,7 +4,7 @@ import { Slider } from "../../ui/Slider";
 import { useSettings } from "../../../hooks/useSettings";
 
 interface RecordingBufferProps {
-  descriptionMode?: "tooltip" | "inline";
+  descriptionMode?: "tooltip" | "inline" | "none";
   grouped?: boolean;
 }
 

@@ -13,7 +13,7 @@ import { commands } from "@/bindings";
 import { toast } from "sonner";
 
 interface GlobalShortcutInputProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
   shortcutId: string;
   disabled?: boolean;

@@ -5,7 +5,7 @@ interface SettingContainerProps {
   title: string;
   description: string;
   children: React.ReactNode;
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none" | "none";
   grouped?: boolean;
   layout?: "horizontal" | "stacked";
   disabled?: boolean;
@@ -16,7 +16,7 @@ export const SettingContainer: React.FC<SettingContainerProps> = ({
   title,
   description,
   children,
-  descriptionMode = "tooltip",
+  descriptionMode = "none",
   grouped = false,
   layout = "horizontal",
   disabled = false,
@@ -50,6 +50,34 @@ export const SettingContainer: React.FC<SettingContainerProps> = ({
   const containerClasses = grouped
     ? "px-4 p-2"
     : "px-4 p-2 rounded-lg border border-mid-gray/20";
+
+  // "none" is this fork's default: label and control, nothing else. The
+  // settings that survived the trim explain themselves, and a row of help icons
+  // reads as clutter once there are only a handful of rows.
+  if (descriptionMode === "none") {
+    if (layout === "stacked") {
+      return (
+        <div className={containerClasses}>
+          <h3
+            className={`text-sm font-medium mb-2 ${disabled ? "opacity-50" : ""}`}
+          >
+            {title}
+          </h3>
+          {children}
+        </div>
+      );
+    }
+    return (
+      <div
+        className={`flex items-center justify-between min-h-12 ${containerClasses}`}
+      >
+        <h3 className={`text-sm font-medium ${disabled ? "opacity-50" : ""}`}>
+          {title}
+        </h3>
+        <div className="flex items-center gap-2">{children}</div>
+      </div>
+    );
+  }
 
   if (layout === "stacked") {
     if (descriptionMode === "tooltip") {

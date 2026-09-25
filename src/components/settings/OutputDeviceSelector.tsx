@@ -7,7 +7,7 @@ import { useSettings } from "../../hooks/useSettings";
 import type { AudioDevice } from "@/bindings";
 
 interface OutputDeviceSelectorProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
   disabled?: boolean;
 }

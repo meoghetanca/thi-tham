@@ -8,7 +8,7 @@ import { findLatestReleaseNote } from "../../whats-new/releaseNotes";
 import type { ReleaseNote } from "../../whats-new/releaseNotes";
 
 interface WhatsNewPreviewProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

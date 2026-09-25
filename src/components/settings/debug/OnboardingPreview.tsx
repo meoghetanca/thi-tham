@@ -7,7 +7,7 @@ export type OnboardingPreviewStep = "accessibility" | "model";
 
 interface OnboardingPreviewProps {
   onPreview: (step: OnboardingPreviewStep) => void;
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

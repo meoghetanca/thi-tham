@@ -7,7 +7,7 @@ import { useOsType } from "../../hooks/useOsType";
 import type { AutoSubmitKey } from "@/bindings";
 
 interface AutoSubmitProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

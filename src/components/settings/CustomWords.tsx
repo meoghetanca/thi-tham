@@ -7,7 +7,7 @@ import { Button } from "../ui/Button";
 import { SettingContainer } from "../ui/SettingContainer";
 
 interface CustomWordsProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

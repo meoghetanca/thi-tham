@@ -764,6 +764,11 @@ pub fn emit_levels(app_handle: &AppHandle, levels: &[f32]) {
     // eval_script call per callback, cutting the per-callback WebKit
     // dispatch work in half.
     let _ = app_handle.emit_to("recording_overlay", "mic-level", levels);
+    // The Home panel draws the same waveform, so the main window needs the
+    // levels too. Addressing each window by label keeps the single
+    // eval_script-per-window cost the comment above is protecting; a broadcast
+    // would go back to dispatching twice into the overlay alone.
+    let _ = app_handle.emit_to("main", "mic-level", levels);
 }
 
 #[cfg(test)]

@@ -5,7 +5,7 @@ interface TextDisplayProps {
   label: string;
   description: string;
   value: string;
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
   placeholder?: string;
   copyable?: boolean;

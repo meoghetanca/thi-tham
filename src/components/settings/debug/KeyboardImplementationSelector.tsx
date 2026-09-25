@@ -12,7 +12,7 @@ const KEYBOARD_IMPLEMENTATION_OPTIONS: DropdownOption[] = [
 ];
 
 interface KeyboardImplementationSelectorProps {
-  descriptionMode?: "tooltip" | "inline";
+  descriptionMode?: "tooltip" | "inline" | "none";
   grouped?: boolean;
 }
 

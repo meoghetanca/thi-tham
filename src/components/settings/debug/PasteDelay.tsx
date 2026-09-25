@@ -6,7 +6,7 @@ import { useSettings } from "../../../hooks/useSettings";
 type PasteDelayKey = "paste_delay_ms" | "paste_delay_after_ms";
 
 interface PasteDelayProps {
-  descriptionMode?: "tooltip" | "inline";
+  descriptionMode?: "tooltip" | "inline" | "none";
   grouped?: boolean;
   settingKey?: PasteDelayKey;
   labelKey?: string;

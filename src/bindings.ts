@@ -816,6 +816,22 @@ async getClamshellMicrophone() : Promise<Result<string, string>> {
 async isRecording() : Promise<boolean> {
     return await TAURI_INVOKE("is_recording");
 },
+/**
+ * Start or stop dictation from the UI.
+ * 
+ * Runs the exact action the transcribe shortcut runs, so the in-app mic button
+ * and the keyboard trigger share one code path rather than duplicating the
+ * record → transcribe → paste pipeline. `post_process` selects the cleanup
+ * variant, matching Option+Shift+Space.
+ */
+async toggleDictation(postProcess: boolean) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("toggle_dictation", { postProcess }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async getMicrophoneChannels(deviceName: string) : Promise<Result<number, string>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("get_microphone_channels", { deviceName }) };

@@ -8,7 +8,7 @@ import { commands } from "@/bindings";
 import type { TypingTool } from "@/bindings";
 
 interface TypingToolProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

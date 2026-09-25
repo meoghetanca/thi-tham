@@ -5,7 +5,7 @@ import { Input } from "../ui/Input";
 import { SettingContainer } from "../ui/SettingContainer";
 
 interface HistoryLimitProps {
-  descriptionMode?: "tooltip" | "inline";
+  descriptionMode?: "tooltip" | "inline" | "none";
   grouped?: boolean;
 }
 

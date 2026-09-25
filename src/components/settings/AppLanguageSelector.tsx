@@ -10,7 +10,7 @@ import {
 import { useSettings } from "@/hooks/useSettings";
 
 interface AppLanguageSelectorProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

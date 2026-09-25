@@ -5,7 +5,7 @@ import { useSettings } from "../../../hooks/useSettings";
 import { useOsType } from "../../../hooks/useOsType";
 
 interface ReliablePasteToggleProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

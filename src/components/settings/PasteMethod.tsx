@@ -8,7 +8,7 @@ import { useOsType } from "../../hooks/useOsType";
 import type { PasteMethod } from "@/bindings";
 
 interface PasteMethodProps {
-  descriptionMode?: "inline" | "tooltip";
+  descriptionMode?: "inline" | "tooltip" | "none";
   grouped?: boolean;
 }
 

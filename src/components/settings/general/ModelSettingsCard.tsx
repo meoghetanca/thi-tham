@@ -42,7 +42,7 @@ export const ModelSettingsCard: React.FC = () => {
     >
       {showLanguageSelector && (
         <LanguageSelector
-          descriptionMode="tooltip"
+          descriptionMode="none"
           grouped={true}
           supportedLanguages={currentModelInfo.supported_languages}
           supportsLanguageDetection={
@@ -51,7 +51,7 @@ export const ModelSettingsCard: React.FC = () => {
         />
       )}
       {supportsTranslation && (
-        <TranslateToEnglish descriptionMode="tooltip" grouped={true} />
+        <TranslateToEnglish descriptionMode="none" grouped={true} />
       )}
     </SettingsGroup>
   );
