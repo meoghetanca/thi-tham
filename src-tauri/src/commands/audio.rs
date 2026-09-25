@@ -378,3 +378,32 @@ pub async fn set_selected_channel(app: AppHandle, channel: Option<u16>) -> Resul
     write_settings(&app, settings);
     Ok(())
 }
+
+/// Start or stop dictation from the UI.
+///
+/// Runs the exact action the transcribe shortcut runs, so the in-app mic button
+/// and the keyboard trigger share one code path rather than duplicating the
+/// record → transcribe → paste pipeline. `post_process` selects the cleanup
+/// variant, matching Option+Shift+Space.
+#[tauri::command]
+#[specta::specta]
+pub fn toggle_dictation(app: AppHandle, post_process: bool) -> Result<(), String> {
+    let binding_id = if post_process {
+        "transcribe_with_post_process"
+    } else {
+        "transcribe"
+    };
+
+    let action = crate::actions::ACTION_MAP
+        .get(binding_id)
+        .ok_or_else(|| format!("no action registered for '{binding_id}'"))?
+        .clone();
+
+    if is_recording(app.clone()) {
+        action.stop(&app, binding_id, "mic-button");
+    } else {
+        action.start(&app, binding_id, "mic-button");
+    }
+
+    Ok(())
+}

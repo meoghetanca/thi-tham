@@ -1,14 +1,20 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Cog, FlaskConical, History, Info, Sparkles, Cpu } from "lucide-react";
+import {
+  AudioLines,
+  BadgeInfo,
+  ScrollText,
+  Settings2,
+  SlidersHorizontal,
+  Wand2,
+} from "lucide-react";
 import HandyTextLogo from "./icons/HandyTextLogo";
-import HandyHand from "./icons/HandyHand";
+import { MicButton } from "./MicButton";
 import { useSettings } from "../hooks/useSettings";
 import {
   GeneralSettings,
   AdvancedSettings,
   HistorySettings,
-  DebugSettings,
   AboutSettings,
   PostProcessingSettings,
   ModelsSettings,
@@ -31,57 +37,62 @@ interface SectionConfig {
   enabled: (settings: any) => boolean;
 }
 
+/**
+ * Icons name what each section is *about*, not what runs it — a voice model is
+ * a waveform, not a CPU; a transcript is a scroll, not a clock.
+ */
 export const SECTIONS_CONFIG = {
   general: {
     labelKey: "sidebar.general",
-    icon: HandyHand,
+    icon: SlidersHorizontal,
     component: GeneralSettings,
-    enabled: () => true,
-  },
-  history: {
-    labelKey: "sidebar.history",
-    icon: History,
-    component: HistorySettings,
     enabled: () => true,
   },
   models: {
     labelKey: "sidebar.models",
-    icon: Cpu,
+    icon: AudioLines,
     component: ModelsSettings,
+    enabled: () => true,
+  },
+  history: {
+    labelKey: "sidebar.history",
+    icon: ScrollText,
+    component: HistorySettings,
     enabled: () => true,
   },
   advanced: {
     labelKey: "sidebar.advanced",
-    icon: Cog,
+    icon: Settings2,
     component: AdvancedSettings,
     enabled: () => true,
   },
   postprocessing: {
     labelKey: "sidebar.postProcessing",
-    icon: Sparkles,
+    icon: Wand2,
     component: PostProcessingSettings,
     enabled: (settings) => settings?.post_process_enabled ?? false,
   },
-  debug: {
-    labelKey: "sidebar.debug",
-    icon: FlaskConical,
-    component: DebugSettings,
-    enabled: (settings) => settings?.debug_mode ?? false,
-  },
   about: {
     labelKey: "sidebar.about",
-    icon: Info,
+    icon: BadgeInfo,
     component: AboutSettings,
     enabled: () => true,
   },
 } as const satisfies Record<string, SectionConfig>;
 
-interface SidebarProps {
+interface TopBarProps {
   activeSection: SidebarSection;
   onSectionChange: (section: SidebarSection) => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({
+/**
+ * Horizontal shell: brand, section tabs, and the mic.
+ *
+ * The mic sits in the bar rather than inside a section because dictating is the
+ * thing you came to do — it stays one click away no matter which settings page
+ * is open.
+ */
+export const TopBar: React.FC<TopBarProps> = ({
   activeSection,
   onSectionChange,
 }) => {
@@ -93,34 +104,42 @@ export const Sidebar: React.FC<SidebarProps> = ({
     .map(([id, config]) => ({ id: id as SidebarSection, ...config }));
 
   return (
-    <div className="flex flex-col w-40 h-full border-e border-mid-gray/20 items-center px-2">
-      <HandyTextLogo width={120} className="m-4" />
-      <div className="flex flex-col w-full items-center gap-1 pt-2 border-t border-mid-gray/20">
+    <header className="shrink-0 border-b border-mid-gray/20">
+      <div className="flex items-center gap-3 px-4 pt-3 pb-2">
+        <HandyTextLogo width={92} className="shrink-0" />
+        <div className="flex-1" />
+        <MicButton />
+      </div>
+
+      <nav
+        className="flex items-center gap-1 overflow-x-auto px-3 pb-2"
+        aria-label={t("sidebar.general")}
+      >
         {availableSections.map((section) => {
           const Icon = section.icon;
           const isActive = activeSection === section.id;
 
           return (
-            <div
+            <button
               key={section.id}
-              className={`flex gap-2 items-center p-2 w-full rounded-lg cursor-pointer transition-colors ${
-                isActive
-                  ? "bg-logo-primary/80"
-                  : "hover:bg-mid-gray/20 hover:opacity-100 opacity-85"
-              }`}
+              type="button"
               onClick={() => onSectionChange(section.id)}
+              aria-current={isActive ? "page" : undefined}
+              className={`flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-sm
+                transition-colors cursor-pointer
+                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-logo-primary
+                ${
+                  isActive
+                    ? "bg-logo-primary/85 text-logo-stroke font-medium"
+                    : "opacity-70 hover:opacity-100 hover:bg-mid-gray/15"
+                }`}
             >
-              <Icon width={24} height={24} className="shrink-0" />
-              <p
-                className="text-sm font-medium truncate"
-                title={t(section.labelKey)}
-              >
-                {t(section.labelKey)}
-              </p>
-            </div>
+              <Icon width={16} height={16} className="shrink-0" />
+              <span className="truncate">{t(section.labelKey)}</span>
+            </button>
           );
         })}
-      </div>
-    </div>
+      </nav>
+    </header>
   );
 };
