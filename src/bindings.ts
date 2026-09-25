@@ -822,7 +822,13 @@ async isRecording() : Promise<boolean> {
  * Runs the exact action the transcribe shortcut runs, so the in-app mic button
  * and the keyboard trigger share one code path rather than duplicating the
  * record → transcribe → paste pipeline. `post_process` selects the cleanup
- * variant, matching Option+Shift+Space.
+ * variant when starting, matching Option+Shift+Space.
+ * 
+ * Stopping ignores `post_process` and stops whichever binding actually started
+ * the recording. `stop_recording` only honours a stop from the binding that
+ * owns the recording; stopping under a different id leaves the recorder
+ * latched with the microphone open, and by then `stop` has already
+ * unregistered the cancel shortcut, so nothing can recover it.
  */
 async toggleDictation(postProcess: boolean) : Promise<Result<null, string>> {
     try {

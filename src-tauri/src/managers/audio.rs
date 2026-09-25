@@ -391,6 +391,11 @@ pub struct AudioRecordingManager {
     /// the main/webview thread when a worker holds `state` across a slow
     /// CoreAudio open/close.
     recording_active: Arc<AtomicBool>,
+    /// The binding that owns the in-flight recording, mirrored out of `state`
+    /// for the same reason as `recording_active`: callers on the main/webview
+    /// thread need it and must not touch the `state` mutex. Its own lock is
+    /// only ever held for a clone, never across device I/O.
+    active_binding: Arc<Mutex<Option<String>>>,
     /// Invalidates asynchronous first-sample UI/chime work when a recording is
     /// stopped or cancelled. This prevents a slow device from producing a late
     /// "ready" indication for a session the user already ended.
@@ -431,6 +436,7 @@ impl AudioRecordingManager {
             cancel_generation: Arc::new(AtomicU64::new(0)),
             stream_router,
             recording_active: Arc::new(AtomicBool::new(false)),
+            active_binding: Arc::new(Mutex::new(None)),
             capture_generation: Arc::new(AtomicU64::new(0)),
             cached_device: Arc::new(Mutex::new(None)),
         };
@@ -811,6 +817,21 @@ impl AudioRecordingManager {
             ),
             Ordering::SeqCst,
         );
+        *self.active_binding.lock().unwrap() = match &*guard {
+            RecordingState::Recording { binding_id } => Some(binding_id.clone()),
+            RecordingState::Idle | RecordingState::Stopping => None,
+        };
+    }
+
+    /// The binding id that started the recording currently in flight, or `None`
+    /// when idle or already stopping. Lock-free with respect to `state`, so it
+    /// is safe to call from a command on the main thread — see `is_recording`.
+    ///
+    /// Stopping a recording under any other id is refused by `stop_recording`,
+    /// so anything that did not start the recording must ask here rather than
+    /// assume an id.
+    pub fn active_binding_id(&self) -> Option<String> {
+        self.active_binding.lock().unwrap().clone()
     }
 
     pub fn try_start_recording(

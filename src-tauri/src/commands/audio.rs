@@ -384,10 +384,33 @@ pub async fn set_selected_channel(app: AppHandle, channel: Option<u16>) -> Resul
 /// Runs the exact action the transcribe shortcut runs, so the in-app mic button
 /// and the keyboard trigger share one code path rather than duplicating the
 /// record → transcribe → paste pipeline. `post_process` selects the cleanup
-/// variant, matching Option+Shift+Space.
+/// variant when starting, matching Option+Shift+Space.
+///
+/// Stopping ignores `post_process` and stops whichever binding actually started
+/// the recording. `stop_recording` only honours a stop from the binding that
+/// owns the recording; stopping under a different id leaves the recorder
+/// latched with the microphone open, and by then `stop` has already
+/// unregistered the cancel shortcut, so nothing can recover it.
 #[tauri::command]
 #[specta::specta]
 pub fn toggle_dictation(app: AppHandle, post_process: bool) -> Result<(), String> {
+    let audio_manager = app.state::<Arc<AudioRecordingManager>>();
+
+    if let Some(active_binding) = audio_manager.active_binding_id() {
+        let action = crate::actions::ACTION_MAP
+            .get(active_binding.as_str())
+            .ok_or_else(|| format!("no action registered for '{active_binding}'"))?
+            .clone();
+        action.stop(&app, &active_binding, "mic-button");
+        return Ok(());
+    }
+
+    // Recording, but no owning binding: a stop is already in flight. Starting
+    // here would only be refused as "Already recording".
+    if audio_manager.is_recording() {
+        return Ok(());
+    }
+
     let binding_id = if post_process {
         "transcribe_with_post_process"
     } else {
@@ -398,12 +421,7 @@ pub fn toggle_dictation(app: AppHandle, post_process: bool) -> Result<(), String
         .get(binding_id)
         .ok_or_else(|| format!("no action registered for '{binding_id}'"))?
         .clone();
-
-    if is_recording(app.clone()) {
-        action.stop(&app, binding_id, "mic-button");
-    } else {
-        action.start(&app, binding_id, "mic-button");
-    }
+    action.start(&app, binding_id, "mic-button");
 
     Ok(())
 }
