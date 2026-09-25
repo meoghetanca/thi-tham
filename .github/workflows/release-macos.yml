@@ -1,0 +1,59 @@
+name: Release (macOS)
+
+# Builds the app and attaches the .dmg to a GitHub Release.
+#
+# Upstream's workflows were removed with the fork: they build for Linux and
+# Windows, which this app does not ship, and they sign with Apple certificates
+# held as secrets in cjpais/Handy. Without those secrets the keychain import
+# fails and every push goes red.
+#
+# The build here is deliberately unsigned. Signing needs a paid Apple Developer
+# account; without it macOS shows a Gatekeeper warning that the README explains
+# how to get past.
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin
+
+      - uses: oven-sh/setup-bun@v2
+
+      # transcribe-cpp builds a C++ engine with Metal; without cmake the build
+      # dies several minutes in.
+      - run: brew install cmake
+
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - run: bun install
+
+      - name: Fetch the voice-activity model
+        run: |
+          mkdir -p src-tauri/resources/models
+          curl -sSLo src-tauri/resources/models/silero_vad_v4.onnx \
+            https://blob.handy.computer/silero_vad_v4.onnx
+
+      - run: bun run tauri build --target aarch64-apple-darwin
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: src-tauri/target/aarch64-apple-darwin/release/bundle/dmg/*.dmg
+          body: |
+            Download the `.dmg`, drag **Thì thầm** to Applications, then
+            **right-click → Open → Open** the first time (the app is unsigned).
+
+            See the [README](https://github.com/meoghetanca/thi-tham#install)
+            for permissions and first-run setup.
